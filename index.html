@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photon - Pure HTML & CSS Photography Template</title>
+    <!-- Font Awesome Icons for Header Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* BASE & RESET STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            width: 100%;
+            background-color: #ffffff;
+            border-bottom: 1px solid #eaeaea;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #000000;
+        }
+
+        /* HIDE CHECKBOX FOR CSS MOBILE TOGGLE */
+        #menu-toggle-input {
+            display: none;
+        }
+
+        /* MOBILE MENU ICON */
+        .menu-toggle-label {
+            display: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: #000000;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            font-size: 0.82rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #666666;
+            transition: color 0.3s ease;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-link:hover, .nav-item:hover .nav-link {
+            color: #000000;
+        }
+
+        /* CSS PURE DROPDOWN MENU */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ffffff;
+            min-width: 180px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            padding: 10px 0;
+            list-style: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1100;
+        }
+
+        /* Pure CSS Hover for Dropdown */
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li a {
+            display: block;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            color: #555555;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #f8f9fa;
+            color: #000000;
+        }
+
+        /* SOCIAL ICONS */
+        .social-icons {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .social-icons a {
+            color: #000000;
+            font-size: 0.95rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            opacity: 0.6;
+        }
+
+        /* GALLERY GRID SECTION */
+        main {
+            flex: 1;
+            max-width: 1250px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        /* GALLERY CARD & HOVER EFFECTS */
+        .gallery-card {
+            position: relative;
+            height: 440px;
+            border-radius: 2px;
+            overflow: hidden;
+            display: block;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            background-color: #111111;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        /* BLACK SHADOW OVERLAY ON HOVER */
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.55) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+            transition: background 0.4s ease;
+        }
+
+        /* Hover Effect: Black Shadow Heavy Effect */
+        .gallery-card:hover .gallery-overlay {
+            background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.88) 100%);
+        }
+
+        .gallery-card:hover .gallery-img {
+            transform: scale(1.05);
+        }
+
+        .category-title {
+            color: #ffffff;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(45, 44, 44, 0.3);
+        }
+
+        /* BUTTON WITH SOLID WHITE HOVER */
+        .more-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border: 1.5px solid #ffffff;
+            color: #ffffff;
+            background: transparent;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        /* Button hover turns background pure white with dark text */
+        .gallery-card:hover .more-btn,
+        .more-btn:hover {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            border-color: #ffffff !important;
+        }
+
+        /* CAROUSEL DOTS & ARROWS */
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .dot.active {
+            background-color: #007bff;
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+            z-index: 10;
+        }
+
+        .nav-arrow:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+        }
+
+        .nav-arrow.left { left: 10px; }
+        .nav-arrow.right { right: 10px; }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.85rem;
+            color: #777777;
+            border-top: 1px solid #f0f0f0;
+            margin-top: auto;
+        }
+
+        footer a {
+            color: #20c997;
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE DESIGN (MOBILE & TABLET - PURE CSS) */
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle-label {
+                display: block;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #ffffff;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                gap: 15px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                display: none;
+            }
+
+            /* CSS Checkbox Hack for Mobile Menu Open/Close */
+            #menu-toggle-input:checked ~ .nav-menu {
+                display: flex;
+            }
+
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                padding-left: 15px;
+                display: none;
+            }
+
+            .nav-item:hover .dropdown-menu {
+                display: block;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-card {
+                height: 420px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER NAVIGATION -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">Photon</a>
+
+            <!-- Pure CSS Toggle Checkbox & Label for Mobile Navigation -->
+            <input type="checkbox" id="menu-toggle-input">
+            <label for="menu-toggle-input" class="menu-toggle-label">
+                <i class="fas fa-bars"></i>
+            </label>
+
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#" class="nav-link">HOME</a></li>
+                
+                <!-- GALLERY DROPDOWN MENU -->
+                <li class="nav-item">
+                    <a href="#gallery" class="nav-link">
+                        GALLERY <i class="fas fa-chevron-down" style="font-size: 0.65rem; margin-left: 2px;"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#nature">Nature Photos</a></li>
+                        <li><a href="#portrait">Portrait Gallery</a></li>
+                        <li><a href="#people">People & Events</a></li>
+                        <li><a href="#landscape">Landscapes</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item"><a href="#" class="nav-link">SERVICES</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">BLOG</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">ABOUT</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">REVIEWS</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">CONTACT</a></li>
+            </ul>
+
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- GALLERY GRID CONTENT WITH EXACT SCREENSHOT IMAGES -->
+    <main>
+        <div class="gallery-grid" id="gallery">
+            
+            <!-- CARD 1: NATURE (Low angle redwood trees looking up) -->
+            <a href="#nature" class="gallery-card" id="nature">
+                <div class="nav-arrow left"><i class="fas fa-chevron-left"></i></div>
+                <img src="./image/1a86ef67-2592-47b4-a78b-59769160638a.png" alt="Nature Trees Upward View" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h2 class="category-title">Nature</h2>
+                    <span class="more-btn">MORE PHOTOS</span>
+                </div>
+            </a>
+
+            <!-- CARD 2: PORTRAIT (Black & White Portrait with Dark Background) -->
+            <a href="#portrait" class="gallery-card" id="portrait">
+                <img src="./image/82d6cbca-31c1-4231-b5f3-6bc895da6a74.png" alt="Black and White Portrait" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h2 class="category-title">Portrait</h2>
+                    <span class="more-btn">MORE PHOTOS</span>
+                    <div class="slider-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- CARD 3: PEOPLE (Group looking down at camera) -->
+            <a href="#people" class="gallery-card" id="people">
+                <div class="nav-arrow right"><i class="fas fa-chevron-right"></i></div>
+                <img src="./image/Canva AI Image Oct 3, 2026, 4_28_48 PM.jpg" alt="Group of People Circle" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h2 class="category-title">People</h2>
+                    <span class="more-btn">MORE PHOTOS</span>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        Copyright 2026 All rights reserved | This template is made with <i class="far fa-heart"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+    </footer>
+
+</body>
+</html>
